@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "542624866044",
+    "project_id": "edi-androidhealthmonitoring",
+    "storage_bucket": "edi-androidhealthmonitoring.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542624866044:android:65d90325c732b48ea5c179",
+        "android_client_info": {
+          "package_name": "ml.adityabodhankar.androidhealthmonitoring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542624866044-vrlm98r4eh6m3nf3rnbo7agptp210a0h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ml.adityabodhankar.androidhealthmonitoring",
+            "certificate_hash": "c6008fbefe52ddcb3161a998306e5cca03b9843a"
+          }
+        },
+        {
+          "client_id": "542624866044-itdfdkns6a7ijimc40575kcns71fmf7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjrUoBBR4er2Zk-ngGlpYJKws1vu3t_AM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542624866044-itdfdkns6a7ijimc40575kcns71fmf7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
