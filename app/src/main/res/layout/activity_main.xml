@@ -110,7 +110,7 @@
             android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/google_sign_in_btn"
-                android:background="@drawable/google"
+                android:background="@drawable/googleg_standard_color_18"
                 android:layout_width="40dp"
                 android:layout_height="40dp" />
         </LinearLayout>
