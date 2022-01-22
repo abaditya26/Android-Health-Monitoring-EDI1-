@@ -56,10 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         loading.setVisibility(View.VISIBLE);
         mainSection.setVisibility(View.GONE);
 
-        settingsIcon.setOnClickListener(view -> {
-            startActivity(new Intent(this, SettingsActivity.class));
-            finish();
-        });
+        settingsIcon.setOnClickListener(view -> startActivity(new Intent(this, SettingsActivity.class)));
 
         reference.child("users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
