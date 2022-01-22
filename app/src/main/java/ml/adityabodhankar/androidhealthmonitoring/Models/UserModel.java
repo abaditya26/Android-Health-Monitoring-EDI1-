@@ -1,12 +1,12 @@
 package ml.adityabodhankar.androidhealthmonitoring.Models;
 
 public class UserModel {
-    private String uid, name, email, phone, gender, weight, height;
+    private String uid, name, email, phone, gender, weight, height, image;
 
     public UserModel() {
     }
 
-    public UserModel(String uid, String name, String email, String phone, String gender, String weight, String height) {
+    public UserModel(String uid, String name, String email, String phone, String gender, String weight, String height, String image) {
         this.uid = uid;
         this.name = name;
         this.email = email;
@@ -14,6 +14,7 @@ public class UserModel {
         this.gender = gender;
         this.weight = weight;
         this.height = height;
+        this.image = image;
     }
 
     public String getUid() {
@@ -70,5 +71,13 @@ public class UserModel {
 
     public void setHeight(String height) {
         this.height = height;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

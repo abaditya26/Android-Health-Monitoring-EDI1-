@@ -80,7 +80,7 @@ public class NewUserActivity extends AppCompatActivity {
         loading.setVisibility(View.VISIBLE);
         saveBtn.setVisibility(View.GONE);
         UserModel user = new UserModel(Objects.requireNonNull(auth.getCurrentUser()).getUid(), name,
-                auth.getCurrentUser().getEmail(),phone, gender, height, weight);
+                auth.getCurrentUser().getEmail(),phone, gender, height, weight, "");
         reference.child("users").child(Objects.requireNonNull(auth.getCurrentUser()).getUid())
                 .setValue(user).addOnSuccessListener(unused -> {
                     loading.setVisibility(View.GONE);
