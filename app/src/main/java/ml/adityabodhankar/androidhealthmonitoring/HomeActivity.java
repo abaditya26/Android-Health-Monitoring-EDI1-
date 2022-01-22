@@ -50,9 +50,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 loading.setVisibility(View.GONE);
-                if(snapshot.exists()){
-                    // user data exists
-                }else{
+                if (!snapshot.exists()) {
                     // user not exists
                     startActivity(new Intent(getApplicationContext(), NewUserActivity.class));
                     finish();
