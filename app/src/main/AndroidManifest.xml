@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidHealthMonitoring">
         <activity
+            android:name=".NewUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".VerificationActivity"
             android:exported="false" />
         <activity
