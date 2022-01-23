@@ -19,6 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ml.adityabodhankar.androidhealthmonitoring.Models.UserModel;
+import ml.adityabodhankar.androidhealthmonitoring.Services.CommonData;
+import ml.adityabodhankar.androidhealthmonitoring.Services.LocalDatabase;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -27,6 +29,8 @@ public class HomeActivity extends AppCompatActivity {
     private LinearLayout loading, mainSection;
     private CircleImageView settingsIcon;
     private UserModel userData;
+    private LocalDatabase localDatabase;
+    private boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         auth = FirebaseAuth.getInstance();
+
+        flag = getIntent().getBooleanExtra("flag", false);
 
         if(auth.getCurrentUser()==null){
             startActivity(new Intent(this, MainActivity.class));
@@ -47,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         reference = FirebaseDatabase.getInstance().getReference();
+        localDatabase = new LocalDatabase(this);
 
         //initialize locals
         loading = findViewById(R.id.loading_section);
@@ -58,28 +65,48 @@ public class HomeActivity extends AppCompatActivity {
 
         settingsIcon.setOnClickListener(view -> startActivity(new Intent(this, SettingsActivity.class)));
 
-        reference.child("users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                loading.setVisibility(View.GONE);
-                mainSection.setVisibility(View.VISIBLE);
-                if (!snapshot.exists()) {
-                    // user not exists
-                    startActivity(new Intent(getApplicationContext(), NewUserActivity.class));
-                    finish();
-                    return;
+//        if internet connection then fetch from remote db and set the latest data to local db
+//        else get data from local db
+        if(CommonData.isNetworkAvailable(this)) {
+            reference.child("users").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    loading.setVisibility(View.GONE);
+                    mainSection.setVisibility(View.VISIBLE);
+                    if (!snapshot.exists()) {
+                        // user not exists
+                        startActivity(new Intent(getApplicationContext(), NewUserActivity.class));
+                        finish();
+                        return;
+                    }
+                    userData = snapshot.getValue(UserModel.class);
+                    CommonData.userData = userData;
+                    //set the data to local database
+                    if (userData != null) {
+                        if(flag) {
+                            localDatabase.setUserData(userData);
+                        } else {
+                            localDatabase.createUser(userData);
+                        }
+                    }
+                    setView();
                 }
-                userData = snapshot.getValue(UserModel.class);
-                setView();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                loading.setVisibility(View.GONE);
-                mainSection.setVisibility(View.VISIBLE);
-                Toast.makeText(getApplicationContext(), "Error :- "+error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    loading.setVisibility(View.GONE);
+                    mainSection.setVisibility(View.VISIBLE);
+                    Toast.makeText(getApplicationContext(), "Error :- " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            // get data from local database
+            userData = localDatabase.getUser(auth.getCurrentUser().getUid());
+            loading.setVisibility(View.GONE);
+            mainSection.setVisibility(View.VISIBLE);
+            CommonData.userData = userData;
+            setView();
+        }
 
     }
 

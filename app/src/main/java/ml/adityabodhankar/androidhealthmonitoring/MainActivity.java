@@ -30,6 +30,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Objects;
 
+import ml.adityabodhankar.androidhealthmonitoring.Services.LocalDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 6006;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar loginProgress;
     private Button loginBtn;
     private GoogleSignInClient mGoogleSignInClient;
+    private LocalDatabase localDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
         if(auth.getCurrentUser()!=null){
             if(auth.getCurrentUser().isEmailVerified()){
                 //nav to homepage
-                startActivity(new Intent(this, HomeActivity.class));
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.putExtra("flag", true);
+                startActivity(intent);
             }else{
                 //nav to email verification link
                 startActivity(new Intent(this, VerificationActivity.class));
