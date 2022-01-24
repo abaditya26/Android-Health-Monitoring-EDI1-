@@ -33,7 +33,7 @@ public class StarterMethods {
     }
 
     public void startSensor(){
-        String steps = "0";
+        String steps;
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();

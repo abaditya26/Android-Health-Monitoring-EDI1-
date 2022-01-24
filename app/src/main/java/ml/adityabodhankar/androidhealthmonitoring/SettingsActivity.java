@@ -1,12 +1,10 @@
 package ml.adityabodhankar.androidhealthmonitoring;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.appcompat.app.AppCompatActivity;
 
 import ml.adityabodhankar.androidhealthmonitoring.Services.CommonData;
 import ml.adityabodhankar.androidhealthmonitoring.Services.SensorServiceInitializer;
@@ -30,10 +28,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
+        CommonData.logout(this);
     }
 }
