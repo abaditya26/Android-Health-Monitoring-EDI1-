@@ -32,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import ml.adityabodhankar.androidhealthmonitoring.MainActivity;
+import ml.adityabodhankar.androidhealthmonitoring.Models.StepModel;
 import ml.adityabodhankar.androidhealthmonitoring.R;
 
 public class SensorServiceInitializer extends Service implements SensorEventListener {
@@ -39,6 +40,7 @@ public class SensorServiceInitializer extends Service implements SensorEventList
     public static String CHANNEL_NAME = "Android Health Monitoring";
     FirebaseUser user;
     DatabaseReference reference;
+    LocalDatabase localDatabase;
     String today;
 
     public static long steps = 0;
@@ -80,6 +82,7 @@ public class SensorServiceInitializer extends Service implements SensorEventList
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference();
+        localDatabase = new LocalDatabase(this);
 
 //        initialize sensors
         sensorManager = (SensorManager) getApplicationContext().getSystemService(SENSOR_SERVICE);
@@ -137,6 +140,14 @@ public class SensorServiceInitializer extends Service implements SensorEventList
 //                broadcasting the data through intent so can be fetched in UI
                 Intent intent = new Intent("AndroidHealthMonitoring");
                 intent.putExtra("steps",steps+"");
+                //store data
+                localDatabase.insertSteps(steps+"", user.getUid());
+                if(steps%3==0){
+                    if(isNetworkAvailable()) {
+                        StepModel stepModel = new StepModel(today, steps + "", user.getUid());
+                        reference.child("users").child(user.getUid()).child("steps").child(today).setValue(stepModel);
+                    }
+                }
                 LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
             }
         }

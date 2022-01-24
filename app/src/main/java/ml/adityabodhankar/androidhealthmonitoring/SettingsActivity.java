@@ -8,7 +8,9 @@ import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import ml.adityabodhankar.androidhealthmonitoring.Services.CommonData;
 import ml.adityabodhankar.androidhealthmonitoring.Services.SensorServiceInitializer;
+import ml.adityabodhankar.androidhealthmonitoring.Services.StarterMethods;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -19,15 +21,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void startSensor(View view) {
-        //check if internet connection
-//         if yes then fetch from cloud and then fetch from local db
-    //         if local db> remote then remote = local and send the value to remote and service
-    //         else local = remote and send the value to local and service
-//         else fetch from local and send to service
-
-        Intent intent = new Intent(this, SensorServiceInitializer.class);
-        intent.putExtra("steps", "100");
-        startService(intent);
+        StarterMethods s = new StarterMethods(this);
+        s.startSensor();
     }
 
     public void stopSensor(View view) {

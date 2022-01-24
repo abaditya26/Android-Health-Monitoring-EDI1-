@@ -1,10 +1,14 @@
 package ml.adityabodhankar.androidhealthmonitoring.Services;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import ml.adityabodhankar.androidhealthmonitoring.Models.UserModel;
 
@@ -15,6 +19,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
     static final private int DB_VERSION=1;
 
     static final String DB_USER = "Users";
+    static final private String DB_STEPS="Steps";
+    static final private String DB_GOAL="Goals";
 
 
     public LocalDatabase(Context context) {
@@ -25,8 +31,15 @@ public class LocalDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS "+DB_USER);
+        db.execSQL("DROP TABLE IF EXISTS "+DB_STEPS);
+        db.execSQL("DROP TABLE IF EXISTS "+DB_GOAL);
         db.execSQL("CREATE TABLE IF NOT EXISTS "+DB_USER+" (_id integer primary key autoincrement, " +
                 "uId text, name text, email text, phone text, image text, height text, gender text, weight text);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+DB_STEPS+" (_id integer primary key autoincrement, " +
+                "steps text, uId text, date text)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+DB_GOAL+" (_id integer primary key autoincrement, " +
+                "uId text, stepGoal text, caloriesGoal text);");
+
     }
 
     @Override
@@ -77,6 +90,44 @@ public class LocalDatabase extends SQLiteOpenHelper {
         }
         cr.close();
         return user;
+    }
+
+    public void insertSteps(String steps, String uId){
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String today = formatter.format(date);
+
+        database=getReadableDatabase();
+
+        Cursor cr =database.rawQuery("SELECT COUNT(*) FROM "+DB_STEPS+" WHERE uId = '"+uId+"' AND date = '"+today+"';",null);
+        cr.moveToNext();
+
+        database=getWritableDatabase();
+
+        if (cr.getString(0).equals("1")){
+            database.execSQL("UPDATE "+DB_STEPS+" SET steps = '"+steps+"' WHERE uId='"+uId+"' AND date ='"+today+"';");
+        }else {
+            database.execSQL("INSERT INTO " + DB_STEPS + "(steps, uId, date) VALUES('" + steps + "','" + uId + "','" + today + "');");
+        }
+        cr.close();
+    }
+
+    public String getSteps(String uId, String date){
+
+        database=getReadableDatabase();
+        Cursor cr =database.rawQuery("SELECT * FROM "+DB_STEPS+" WHERE uId = '"+uId+"' AND date = '"+date+"';",null);
+
+        String step = "0";
+        while (cr.moveToNext()){
+            try{
+                step =cr.getString(1);
+            }catch (Exception e){
+                Toast.makeText(ctx, "Error => "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        cr.close();
+        return step;
     }
 
 }
