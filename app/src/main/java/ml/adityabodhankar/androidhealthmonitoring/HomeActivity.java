@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private DatabaseReference reference;
-    private LinearLayout loading, mainSection;
+    private LinearLayout loading;
+    private RelativeLayout mainSection;
     private CircleImageView settingsIcon;
     private UserModel userData;
     private LocalDatabase localDatabase;
@@ -63,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
         loading.setVisibility(View.VISIBLE);
         mainSection.setVisibility(View.GONE);
 
-        settingsIcon.setOnClickListener(view -> startActivity(new Intent(this, ProfileActivity.class)));
+        settingsIcon.setOnClickListener(view -> startActivity(new Intent(this, SettingsActivity.class)));
 
 //        if internet connection then fetch from remote db and set the latest data to local db
 //        else get data from local db
@@ -107,7 +109,6 @@ public class HomeActivity extends AppCompatActivity {
             CommonData.userData = userData;
             setView();
         }
-
     }
 
     private void setView() {

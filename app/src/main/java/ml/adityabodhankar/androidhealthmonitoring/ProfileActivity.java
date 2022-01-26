@@ -98,6 +98,14 @@ public class ProfileActivity extends AppCompatActivity {
         // load data
         setData();
         disableEdit();
+
+        image.setOnClickListener(view -> {
+            if(isEditEnabled){
+                //update image
+            }else{
+                Toast.makeText(getApplicationContext(), "Enable Edit First.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void enableEdit() {
@@ -164,6 +172,7 @@ public class ProfileActivity extends AppCompatActivity {
         userMap.put("phone", phone);
         userMap.put("height", height);
         userMap.put("weight", weight);
+        userMap.put("image", user.getImage());
 
         reference.child("users").child(user.getUid()).updateChildren(userMap)
                 .addOnSuccessListener(unused -> {
