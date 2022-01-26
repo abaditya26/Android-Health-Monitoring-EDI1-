@@ -27,7 +27,7 @@ public class NewUserActivity extends AppCompatActivity {
     RadioButton maleButton, femaleButton;
     ProgressBar loading;
     Button saveBtn;
-    String gender="male";
+    String gender="";
 
     FirebaseAuth auth;
     DatabaseReference reference;
