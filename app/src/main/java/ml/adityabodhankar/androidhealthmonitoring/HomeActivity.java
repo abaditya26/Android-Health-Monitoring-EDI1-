@@ -63,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         loading.setVisibility(View.VISIBLE);
         mainSection.setVisibility(View.GONE);
 
-        settingsIcon.setOnClickListener(view -> startActivity(new Intent(this, SettingsActivity.class)));
+        settingsIcon.setOnClickListener(view -> startActivity(new Intent(this, ProfileActivity.class)));
 
 //        if internet connection then fetch from remote db and set the latest data to local db
 //        else get data from local db

@@ -52,7 +52,6 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
         auth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference();
 
@@ -79,14 +78,18 @@ public class ProfileActivity extends AppCompatActivity {
         maleButton.setOnClickListener(view -> gender = "male");
         femaleButton.setOnClickListener(view -> gender = "female");
 
+
         if(CommonData.isNetworkAvailable(this)) {
-            if(isEditEnabled) {
-                saveBtn.setOnClickListener(view -> saveData());
-            }else{
-                // enable edit
-                enableEdit();
-                saveBtn.setText("SAVE");
-            }
+            saveBtn.setOnClickListener(view -> {
+                if(isEditEnabled) {
+                    //edit complete save data
+                    saveData();
+                }else{
+                    // enable edit
+                    enableEdit();
+                }
+            });
+
         }else{
             saveBtn.setText("NO INTERNET");
         }
@@ -94,24 +97,33 @@ public class ProfileActivity extends AppCompatActivity {
         profileEmail.setText(Objects.requireNonNull(auth.getCurrentUser()).getEmail());
         // load data
         setData();
+        disableEdit();
     }
 
     private void enableEdit() {
         isEditEnabled = true;
+        saveBtn.setText("SAVE");
         //enable edit of all edit text
         profileName.setEnabled(true);
         profilePhone.setEnabled(true);
         profileHeight.setEnabled(true);
         profileWeight.setEnabled(true);
+        maleButton.setEnabled(true);
+        femaleButton.setEnabled(true);
     }
 
     private void disableEdit() {
         isEditEnabled = false;
+        saveBtn.setText("EDIT");
         //enable edit of all edit text
         profileName.setEnabled(false);
         profilePhone.setEnabled(false);
         profileHeight.setEnabled(false);
         profileWeight.setEnabled(false);
+        maleButton.setEnabled(false);
+        femaleButton.setEnabled(false);
+        loading.setVisibility(View.GONE);
+        saveBtn.setVisibility(View.VISIBLE);
     }
 
     private void setData() {
@@ -120,8 +132,14 @@ public class ProfileActivity extends AppCompatActivity {
         profilePhone.setText(user.getPhone());
         profileHeight.setText(user.getHeight());
         profileWeight.setText(user.getWeight());
+        gender = user.getGender();
         if(user.getImage().compareTo("default")!=0){
             Glide.with(this).load(user.getImage()).into(image);
+        }
+        if(gender.compareTo("male")==0){
+            maleButton.setChecked(true);
+        }else{
+            femaleButton.setChecked(true);
         }
     }
 
@@ -137,16 +155,21 @@ public class ProfileActivity extends AppCompatActivity {
         loading.setVisibility(View.VISIBLE);
         saveBtn.setVisibility(View.GONE);
         //update data
-//        user.setName(name);
-//        user.setPhone(phone);
-//        user.setHeight(height);
-//        user.setWeight(weight);
+        user.setName(name);
+        user.setPhone(phone);
+        user.setHeight(height);
+        user.setWeight(weight);
         Map<String, Object> userMap = new HashMap<>();
+        userMap.put("name", name);
+        userMap.put("phone", phone);
+        userMap.put("height", height);
+        userMap.put("weight", weight);
 
         reference.child("users").child(user.getUid()).updateChildren(userMap)
                 .addOnSuccessListener(unused -> {
                     Toast.makeText(getApplicationContext(), "Profile Updated.", Toast.LENGTH_SHORT).show();
                     disableEdit();
+                    CommonData.userData = user;
                 }).addOnFailureListener(e -> {
                     Toast.makeText(getApplicationContext(), "Profile Update Failed. Please reload.", Toast.LENGTH_SHORT).show();
                 });
@@ -174,5 +197,9 @@ public class ProfileActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public void back_btn(View view) {
+        finish();
     }
 }
