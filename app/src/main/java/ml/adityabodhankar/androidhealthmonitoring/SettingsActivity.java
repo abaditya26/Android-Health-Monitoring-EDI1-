@@ -45,6 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         profile.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProfileActivity.class)));
         logout.setOnClickListener(view -> CommonData.logout(getApplicationContext()));
+        goal.setOnClickListener(view->startActivity(new Intent(getApplicationContext(), GoalActivity.class)));
     }
 
     @Override
@@ -58,15 +59,14 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    public void startSensor(View view) {
+    public void startSensor() {
         StarterMethods s = new StarterMethods(this);
         s.startSensor();
     }
 
-    public void stopSensor(View view) {
+    public void stopSensor() {
         stopService(new Intent(this, SensorServiceInitializer.class));
     }
-
 
     public void back_btn(View view) {
         finish();

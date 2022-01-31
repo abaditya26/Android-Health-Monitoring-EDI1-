@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidHealthMonitoring">
         <activity
+            android:name=".GoalActivity"
+            android:exported="false" />
+        <activity
             android:name=".AssistantActivity"
             android:exported="false" />
         <activity

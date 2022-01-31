@@ -6,9 +6,9 @@
         />
 
     <corners
-        android:bottomLeftRadius="100px"
-        android:bottomRightRadius="100px"
-        android:topRightRadius="100px"
+        android:bottomLeftRadius="15px"
+        android:bottomRightRadius="15px"
+        android:topRightRadius="15px"
         />
 
     <stroke

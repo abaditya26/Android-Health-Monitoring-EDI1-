@@ -10,6 +10,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import ml.adityabodhankar.androidhealthmonitoring.Models.ModelGoal;
 import ml.adityabodhankar.androidhealthmonitoring.Models.UserModel;
 
 public class LocalDatabase extends SQLiteOpenHelper {
@@ -130,4 +131,33 @@ public class LocalDatabase extends SQLiteOpenHelper {
         return step;
     }
 
+    public void insertGoal(String uId, String steps, String calorie){
+        database=getReadableDatabase();
+        Cursor cr =database.rawQuery("SELECT COUNT(*) FROM "+DB_GOAL+" WHERE uId = '"+uId+"';",null);
+        cr.moveToNext();
+        database=getWritableDatabase();
+        if (cr.getString(0).equals("1")){
+            database.execSQL("UPDATE "+DB_GOAL+" SET stepGoal='"+steps+"', caloriesGoal ='"+calorie+"';");
+        }else {
+            database.execSQL("INSERT INTO "+DB_GOAL+"(uId, stepGoal, caloriesGoal) VALUES('"+uId+"','"+steps+"','"+calorie+"');");
+        }
+        cr.close();
+    }
+
+    public ModelGoal getGoal(String uId){
+        database=getReadableDatabase();
+        Cursor cr =database.rawQuery("SELECT * FROM "+DB_GOAL+" WHERE uId = '"+uId+"';",null);
+        String step = "500",calorie = "100";
+        boolean isDataAvailable = false;
+        while (cr.moveToNext()) {
+            step = cr.getString(2);
+            calorie = cr.getString(3);
+            isDataAvailable = true;
+        }
+        if (!isDataAvailable){
+            insertGoal(uId, step, calorie);
+        }
+        cr.close();
+        return new ModelGoal(step,calorie);
+    }
 }

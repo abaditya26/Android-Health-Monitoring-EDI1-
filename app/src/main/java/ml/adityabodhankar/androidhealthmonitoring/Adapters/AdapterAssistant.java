@@ -9,11 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ml.adityabodhankar.androidhealthmonitoring.Models.ModelMessage;
+import ml.adityabodhankar.androidhealthmonitoring.Models.UserModel;
 import ml.adityabodhankar.androidhealthmonitoring.R;
+import ml.adityabodhankar.androidhealthmonitoring.Services.CommonData;
 
 public class AdapterAssistant extends RecyclerView.Adapter<AdapterAssistant.ViewHolder>{
     Context ctx;
@@ -59,7 +63,7 @@ public class AdapterAssistant extends RecyclerView.Adapter<AdapterAssistant.View
         return messages.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView userIcon;
         TextView message, time;
         public ViewHolder(@NonNull View itemView) {
@@ -73,6 +77,10 @@ public class AdapterAssistant extends RecyclerView.Adapter<AdapterAssistant.View
             message.setText(messages.get(position).getText());
             time.setText(messages.get(position).getTimeStamp());
 //            TODO:user icon
+            UserModel user = CommonData.userData;
+            if(user.getImage().compareTo("default")!=0){
+                Glide.with(ctx).load(user.getImage()).into(userIcon);
+            }
         }
     }
 

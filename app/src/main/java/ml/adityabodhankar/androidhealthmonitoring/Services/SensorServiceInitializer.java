@@ -136,7 +136,7 @@ public class SensorServiceInitializer extends Service implements SensorEventList
                 steps++;
                 System.out.println(steps);
                 lastTime=currentTime;
-
+                CommonData.steps = steps;
 //                broadcasting the data through intent so can be fetched in UI
                 Intent intent = new Intent("AndroidHealthMonitoring");
                 intent.putExtra("steps",steps+"");
