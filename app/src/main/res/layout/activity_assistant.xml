@@ -48,7 +48,7 @@
         android:layout_alignParentEnd="true">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/assistant_recycler_view"
+        android:id="@+id/assistant_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/profile_back"/>

@@ -10,11 +10,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
+
 import ml.adityabodhankar.androidhealthmonitoring.MainActivity;
+import ml.adityabodhankar.androidhealthmonitoring.Models.ModelMessage;
+import ml.adityabodhankar.androidhealthmonitoring.Models.ModelOpenPage;
 import ml.adityabodhankar.androidhealthmonitoring.Models.UserModel;
 
 public class CommonData {
     public static UserModel userData;
+    public static List<ModelOpenPage> openPageList;
+    public static double steps;
+    public static List<ModelMessage> messages;
 
     //    method to check internet connection
     public static boolean isNetworkAvailable(Context ctx) {

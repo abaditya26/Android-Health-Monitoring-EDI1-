@@ -11,7 +11,7 @@
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/profile_back.xml" value="0.1680921052631579" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/round_corner_buttom.xml" value="0.26614583333333336" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/rounded_corner.xml" value="0.26614583333333336" />
-        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_assistant.xml" value="0.22894736842105262" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_assistant.xml" value="0.15789473684210525" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_home.xml" value="0.15789473684210525" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_new_user.xml" value="0.1563517915309446" />
@@ -19,6 +19,7 @@
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_settings.xml" value="0.15555555555555556" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_sign_up.xml" value="0.12796052631578947" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_verification.xml" value="0.22894736842105262" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/message_item_left.xml" value="0.15789473684210525" />
       </map>
     </option>
   </component>
