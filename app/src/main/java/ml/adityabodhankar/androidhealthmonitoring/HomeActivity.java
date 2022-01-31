@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     private UserModel userData;
     private LocalDatabase localDatabase;
     private boolean flag = false;
+    private FloatingActionButton chatFAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +63,12 @@ public class HomeActivity extends AppCompatActivity {
         loading = findViewById(R.id.loading_section);
         mainSection = findViewById(R.id.main_section);
         settingsIcon = findViewById(R.id.user_icon);
+        chatFAB = findViewById(R.id.chat_fab);
 
         loading.setVisibility(View.VISIBLE);
         mainSection.setVisibility(View.GONE);
+
+        chatFAB.setOnClickListener(view -> startActivity(new Intent(this, AssistantActivity.class)));
 
         settingsIcon.setOnClickListener(view -> startActivity(new Intent(this, SettingsActivity.class)));
 
