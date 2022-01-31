@@ -4,9 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/assistant_back.xml" value="0.223" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/background_main_contents_white.xml" value="0.223" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/border_only_button.xml" value="0.223" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/circle_loading_back.xml" value="0.23914473684210527" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/circle_shape.xml" value="0.223" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/circular_progress_bar.xml" value="0.223" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/google.xml" value="0.26614583333333336" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24_black.xml" value="0.223" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/ic_baseline_directions_run_24.xml" value="0.223" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/ic_baseline_keyboard_arrow_up_24.xml" value="0.223" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.223" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/ic_login.xml" value="0.26614583333333336" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/ic_send.xml" value="0.294" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/drawable/input_message_back.xml" value="0.223" />
@@ -18,12 +25,12 @@
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_assistant.xml" value="0.15789473684210525" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_goal.xml" value="0.15789473684210525" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_home.xml" value="0.15789473684210525" />
-        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_main.xml" value="0.15789473684210525" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_new_user.xml" value="0.1563517915309446" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_profile.xml" value="0.15789473684210525" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_settings.xml" value="0.15555555555555556" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_sign_up.xml" value="0.12796052631578947" />
-        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_verification.xml" value="0.22894736842105262" />
+        <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/activity_verification.xml" value="0.15789473684210525" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/message_item_left.xml" value="0.15789473684210525" />
         <entry key="..\:/collage_documents/Engineering/sem3/EDI/AndroidHealthMonitoring/app/src/main/res/layout/message_item_right.xml" value="0.15789473684210525" />
       </map>

@@ -8,9 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import ml.adityabodhankar.androidhealthmonitoring.Models.ModelGoal;
+import ml.adityabodhankar.androidhealthmonitoring.Models.StepModel;
 import ml.adityabodhankar.androidhealthmonitoring.Models.UserModel;
 
 public class LocalDatabase extends SQLiteOpenHelper {
@@ -160,4 +163,30 @@ public class LocalDatabase extends SQLiteOpenHelper {
         cr.close();
         return new ModelGoal(step,calorie);
     }
+
+
+    public List<StepModel> getOldSteps(String uId){
+        List<StepModel> stepsList = new ArrayList<>();
+
+        database=getReadableDatabase();
+        Cursor cr =database.rawQuery("SELECT * FROM "+DB_STEPS+" WHERE uId = '"+uId+"' ORDER BY date DESC;",null);
+        int count = 0;
+        while (cr.moveToNext()){
+            try{
+                String step =cr.getString(1);
+                String date = cr.getString(3);
+                stepsList.add(new StepModel(date,step,uId));
+            }catch (Exception e){
+                Toast.makeText(ctx, "Error => "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+            count++;
+            if(count>=5){
+                break;
+            }
+        }
+
+        cr.close();
+        return stepsList;
+    }
+
 }

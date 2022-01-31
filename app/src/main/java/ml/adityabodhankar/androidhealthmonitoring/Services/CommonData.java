@@ -21,7 +21,7 @@ import ml.adityabodhankar.androidhealthmonitoring.Models.UserModel;
 public class CommonData {
     public static UserModel userData;
     public static List<ModelOpenPage> openPageList;
-    public static double steps;
+    public static long steps;
     public static List<ModelMessage> messages;
     public static ModelGoal goal;
 

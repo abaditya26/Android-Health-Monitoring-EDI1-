@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import ml.adityabodhankar.androidhealthmonitoring.GoalActivity;
+import ml.adityabodhankar.androidhealthmonitoring.HomeActivity;
 import ml.adityabodhankar.androidhealthmonitoring.MainActivity;
 import ml.adityabodhankar.androidhealthmonitoring.Models.ModelOpenPage;
 import ml.adityabodhankar.androidhealthmonitoring.ProfileActivity;
@@ -67,7 +69,7 @@ public class AssistantMethods{
         }else if (inputString.toLowerCase().contains("update") || inputString.toLowerCase().contains("change") || inputString.toLowerCase().contains("set")){
 
             if (inputString.toLowerCase().contains("goal")){
-//                context.startActivity(new Intent(context, SetGoalActivity.class));
+                context.startActivity(new Intent(context, GoalActivity.class));
             }else if (inputString.toLowerCase().contains("profile")){
                 context.startActivity(new Intent(context, ProfileActivity.class));
             }else{
@@ -85,7 +87,7 @@ public class AssistantMethods{
                 if (inputString.toLowerCase().contains("stop") ){
                     replyString = "Stopping Service...";
                     activity.stopService(new Intent(context, SensorServiceInitializer.class));
-//                    LocalBroadcastManager.getInstance(context).unregisterReceiver(HomeFragment.broadcastReceiver);
+                    LocalBroadcastManager.getInstance(context).unregisterReceiver(HomeActivity.broadcastReceiver);
                 }else if(inputString.toLowerCase().contains("start")){
                     replyString = "Starting Service...";
                     new StarterMethods(context).startSensor();

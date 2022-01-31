@@ -55,7 +55,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="10dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/user_icon" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,7 +106,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/ic_baseline_directions_run_24" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -135,12 +135,42 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/running" />
+
+                <TextView
+                    android:id="@+id/settings_steps_counting_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Start Counting Steps"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#8A888888"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/settings_change_password"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_baseline_vpn_key_24" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Start Counting Steps"
+                    android:text="Change Password"
                     android:textSize="20sp" />
 
 

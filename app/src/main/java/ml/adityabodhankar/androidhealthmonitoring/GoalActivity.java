@@ -134,7 +134,6 @@ public class GoalActivity extends AppCompatActivity {
         calories.setEnabled(true);
     }
 
-
     private boolean checkData() {
         if (calories.getText().toString().equalsIgnoreCase("")){
             calories.setError("Required Field");
