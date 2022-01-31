@@ -1,9 +1,12 @@
 package ml.adityabodhankar.androidhealthmonitoring;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +20,15 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.common.internal.service.Common;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -102,6 +108,10 @@ public class ProfileActivity extends AppCompatActivity {
         image.setOnClickListener(view -> {
             if(isEditEnabled){
                 //update image
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, 11);
             }else{
                 Toast.makeText(getApplicationContext(), "Enable Edit First.", Toast.LENGTH_SHORT).show();
             }
@@ -210,5 +220,41 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void back_btn(View view) {
         finish();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==11 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
+            Uri imageUri = data.getData();
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Image Uploading");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+            StorageReference uploadImage = FirebaseStorage.getInstance().getReference().child("images/"+auth.getCurrentUser().getUid());
+
+            uploadImage.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Image Uploaded. Click Save data.", Toast.LENGTH_SHORT).show();
+                        Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+                        task.addOnSuccessListener(uri -> {
+                            user.setImage(uri.toString());
+                            Glide.with(this).load(imageUri).into(image);
+                        });
+                    })
+                    .addOnFailureListener(exception -> {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Failed to upload"+exception, Toast.LENGTH_SHORT).show();
+                    }).addOnProgressListener(snapshot -> {
+                double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                progressDialog.setMessage("Uploading :- "+(int)progressPercent+" %");
+            });
+        }else{
+            Toast.makeText(this, "Operation Cancelled", Toast.LENGTH_SHORT).show();
+        }
     }
 }
