@@ -368,4 +368,8 @@ public class HomeActivity extends AppCompatActivity {
             LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(broadcastReceiver, new IntentFilter("AndroidHealthMonitoring"));
         }catch (Exception ignored){}
     }
+
+    public void displayDetails(View view) {
+        startActivity(new Intent(this, StatisticsActivity.class));
+    }
 }

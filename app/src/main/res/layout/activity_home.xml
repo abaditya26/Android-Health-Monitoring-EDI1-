@@ -244,6 +244,15 @@
                         android:layout_height="wrap_content"
                         android:minHeight="300dp"/>
 
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+ View More"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:onClick="displayDetails"
+                        />
+
                 </LinearLayout>
 
             </LinearLayout>
