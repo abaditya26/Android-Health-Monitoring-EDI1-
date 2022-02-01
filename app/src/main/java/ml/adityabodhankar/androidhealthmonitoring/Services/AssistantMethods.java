@@ -1,5 +1,6 @@
 package ml.adityabodhankar.androidhealthmonitoring.Services;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +10,11 @@ import android.util.Log;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,11 +62,15 @@ public class AssistantMethods{
             replyString = "no match found for your query";
 
         }else if (inputString.toLowerCase().contains("show") || inputString.toLowerCase().contains("view") || inputString.toLowerCase().contains("give")){
-
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date();
+            String today = formatter.format(date);
+            String s = new LocalDatabase(context).getSteps(FirebaseAuth.getInstance().getCurrentUser().getUid(),today);
+            long steps = Math.max(Long.parseLong(s), CommonData.steps);
             if (inputString.toLowerCase().contains("steps")){
-                replyString = "Today's steps count is "+ CommonData.steps;
+                replyString = "Today's steps count is "+ Math.max(Long.parseLong(s), CommonData.steps);
             }else if (inputString.toLowerCase().contains("calories")){
-                replyString = "Today's calories count is "+ CommonData.steps * 0.04;
+                replyString = "Today's calories count is "+ Math.max(Long.parseLong(s), CommonData.steps) * 0.04;
             }else {
                 replyString = "No such data present.";
             }

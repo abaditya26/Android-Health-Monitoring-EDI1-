@@ -90,6 +90,7 @@ public class HomeActivity extends AppCompatActivity {
             updateUI(steps, calories, distance);
         }
 
+        @SuppressLint("SetTextI18n")
         private void updateUI(int steps, double calories, double distance) {
             try{
                 long stepGoal = 500;
@@ -103,7 +104,6 @@ public class HomeActivity extends AppCompatActivity {
                             ModelGoal goal = snapshot.getValue(ModelGoal.class);
                             if (goal!=null){
                                 CommonData.goal = goal;
-                                System.out.println(CommonData.goal.getStepGoal());
                                 localDatabase.insertGoal(FirebaseAuth.getInstance().getCurrentUser().getUid(),goal.getStepGoal(),goal.getCaloriesGoal());
                             }else{
                                 System.out.println("huiashdiusadh");
@@ -118,12 +118,12 @@ public class HomeActivity extends AppCompatActivity {
 
 
                 double percentage = steps*100.0/stepGoal;
-                stepCount.setText(steps+"");
+                stepCount.setText(steps+"/"+stepGoal);
                 stepCountProgress.setProgress((int) percentage);
 
                 stepTextView.setText(steps+"");
-                caloriesTextView.setText(df.format(calories));
-                distanceTextView.setText(df.format(distance));
+                caloriesTextView.setText(df.format(calories)+"kcal");
+                distanceTextView.setText(df.format(distance)+"m");
                 try{
                     setBarData();
                 }catch (Exception er){
@@ -305,6 +305,7 @@ public class HomeActivity extends AppCompatActivity {
         setChart();
     }
 
+    @SuppressLint("SetTextI18n")
     private void setUIData() {
         String s = localDatabase.getSteps(auth.getCurrentUser().getUid(),today);
 
@@ -334,7 +335,7 @@ public class HomeActivity extends AppCompatActivity {
         stepCountProgress.setProgress((int) percentage);
 
         stepTextView.setText(steps+"");
-        caloriesTextView.setText(df.format(calories));
+        caloriesTextView.setText(df.format(calories)+"kcal");
         distanceTextView.setText(df.format(distance)+"m");
 
     }

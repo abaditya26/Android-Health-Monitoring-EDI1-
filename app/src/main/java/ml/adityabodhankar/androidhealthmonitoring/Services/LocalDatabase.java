@@ -175,6 +175,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
             try{
                 String step =cr.getString(1);
                 String date = cr.getString(3);
+                if(!flag) {
+                    date = date.split("-")[1] + "-" + date.split("-")[2];
+                }
                 stepsList.add(new StepModel(date,step,uId));
             }catch (Exception e){
                 Toast.makeText(ctx, "Error => "+e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -208,4 +211,47 @@ public class LocalDatabase extends SQLiteOpenHelper {
         }
     }
 
+    String getMonth(String m){
+        String month = "JAN";
+        int mon = Integer.parseInt(m);
+        switch (mon){
+            case 1:
+                month = "JAN";
+                break;
+            case 2:
+                month = "FEB";
+                break;
+            case 3:
+                month = "MAR";
+                break;
+            case 4:
+                month = "APR";
+                break;
+            case 5:
+                month = "MAY";
+                break;
+            case 6:
+                month = "JUNE";
+                break;
+            case 7:
+                month = "JUL";
+                break;
+            case 8:
+                month = "AUG";
+                break;
+            case 9:
+                month = "SEP";
+                break;
+            case 10:
+                month = "OCT";
+                break;
+            case 11:
+                month = "NOV";
+                break;
+            case 12:
+                month = "DEC";
+                break;
+        }
+        return month;
+    }
 }
