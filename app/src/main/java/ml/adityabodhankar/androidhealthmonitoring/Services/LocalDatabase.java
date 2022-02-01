@@ -165,7 +165,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
     }
 
 
-    public List<StepModel> getOldSteps(String uId){
+    public List<StepModel> getOldSteps(String uId, boolean flag){
         List<StepModel> stepsList = new ArrayList<>();
 
         database=getReadableDatabase();
@@ -180,13 +180,32 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 Toast.makeText(ctx, "Error => "+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
             count++;
-            if(count>=5){
-                break;
+            if(!flag) {
+                if (count >= 5) {
+                    break;
+                }
             }
         }
 
         cr.close();
         return stepsList;
+    }
+
+    public void addOldSteps(List<StepModel> stepsList, String uId) {
+        database = getReadableDatabase();
+        for (StepModel stepsModel : stepsList){
+            Cursor cr =database.rawQuery("SELECT COUNT(*) FROM "+DB_STEPS+" WHERE uId = '"+uId+"' AND date = '"+stepsModel.getDate()+"';",null);
+            cr.moveToNext();
+
+            database=getWritableDatabase();
+
+            if (cr.getString(0).equals("1")){
+                database.execSQL("UPDATE "+DB_STEPS+" SET steps = '"+ stepsModel.getSteps()+"' WHERE uId='"+uId+"' AND date ='"+stepsModel.getDate()+"';");
+            }else {
+                database.execSQL("INSERT INTO " + DB_STEPS + "(steps, uId, date) VALUES('" + stepsModel.getSteps() + "','" + uId + "','" + stepsModel.getDate() + "');");
+            }
+            cr.close();
+        }
     }
 
 }

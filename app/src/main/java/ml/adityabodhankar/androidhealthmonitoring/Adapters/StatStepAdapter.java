@@ -1,5 +1,6 @@
 package ml.adityabodhankar.androidhealthmonitoring.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import ml.adityabodhankar.androidhealthmonitoring.Models.StepModel;
@@ -26,7 +28,7 @@ public class StatStepAdapter extends RecyclerView.Adapter<StatStepAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(ctx).inflate(R.layout.table_row,parent,false));
+        return new ViewHolder(LayoutInflater.from(ctx).inflate(R.layout.table_row, parent, false));
     }
 
     @Override
@@ -39,8 +41,9 @@ public class StatStepAdapter extends RecyclerView.Adapter<StatStepAdapter.ViewHo
         return steps.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView date, step, calorie;
+        private static final DecimalFormat df = new DecimalFormat("0.00");
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.table_date);
@@ -48,10 +51,11 @@ public class StatStepAdapter extends RecyclerView.Adapter<StatStepAdapter.ViewHo
             calorie = itemView.findViewById(R.id.table_calories);
         }
 
+        @SuppressLint("SetTextI18n")
         public void setData(StepModel stepData) {
             date.setText(stepData.getDate());
             step.setText(stepData.getSteps());
-            calorie.setText((Long.parseLong(stepData.getSteps()) * 0.04)+"");
+            calorie.setText((df.format(Long.parseLong(stepData.getSteps()) * 0.04))+"m");
         }
     }
 }

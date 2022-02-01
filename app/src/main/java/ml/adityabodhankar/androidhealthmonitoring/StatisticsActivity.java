@@ -43,16 +43,12 @@ public class StatisticsActivity extends AppCompatActivity {
 
         table.setLayoutManager(new LinearLayoutManager(this));
 
-        stepList = localDatabase.getOldSteps(Objects.requireNonNull(auth.getCurrentUser()).getUid());
+        stepList = localDatabase.getOldSteps(Objects.requireNonNull(auth.getCurrentUser()).getUid(), true);
 
         table.setAdapter(new StatStepAdapter(this, stepList));
 
+        stepList = localDatabase.getOldSteps(Objects.requireNonNull(auth.getCurrentUser()).getUid(), false);
         setChart();
-        setTable();
-    }
-
-    private void setTable() {
-
     }
 
     private void setChart() {

@@ -74,6 +74,8 @@
                 android:ems="10"
                 android:enabled="false"
                 android:hint="Your Name"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
                 android:layout_margin="10dp"
                 android:inputType="textPersonName"/>
 
@@ -83,6 +85,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Your Phone"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
                 android:layout_margin="10dp"
                 android:inputType="phone" />
 
@@ -114,6 +118,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Height"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
                 android:layout_margin="10dp"
                 android:inputType="number" />
 
@@ -123,6 +129,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Weight"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
                 android:layout_margin="10dp"
                 android:inputType="number" />
 

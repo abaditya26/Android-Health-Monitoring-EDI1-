@@ -140,6 +140,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:textSize="32sp"
+                        android:maxWidth="130dp"
                         app:layout_constraintBottom_toBottomOf="@+id/stepsProgressBar"
                         app:layout_constraintEnd_toEndOf="@+id/stepsProgressBar"
                         app:layout_constraintStart_toStartOf="@+id/stepsProgressBar"
@@ -179,6 +180,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Steps"
+                                android:textColor="@color/black"
                                 android:textSize="20sp"
                                 android:gravity="center"
                                 />
@@ -187,6 +189,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="stepcount"
+                                android:textColor="@color/black"
                                 android:gravity="center"
                                 />
 
@@ -201,6 +204,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Calories"
+                                android:textColor="@color/black"
                                 android:textSize="20sp"
                                 android:gravity="center"
                                 />
@@ -209,6 +213,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="caloriecount"
+                                android:textColor="@color/black"
                                 android:gravity="center"
                                 />
 
@@ -223,6 +228,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Distance"
+                                android:textColor="@color/black"
                                 android:textSize="20sp"
                                 android:gravity="center"
                                 />
@@ -231,6 +237,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="distancecount"
+                                android:textColor="@color/black"
                                 android:gravity="center"
                                 />
 

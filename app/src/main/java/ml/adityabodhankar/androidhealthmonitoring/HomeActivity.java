@@ -137,7 +137,7 @@ public class HomeActivity extends AppCompatActivity {
         private void setBarData() {
             ArrayList<BarEntry> dataValues = new ArrayList<>();
 
-            List<StepModel> stepList = localDatabase.getOldSteps(Objects.requireNonNull(auth.getCurrentUser()).getUid());
+            List<StepModel> stepList = localDatabase.getOldSteps(Objects.requireNonNull(auth.getCurrentUser()).getUid(), false);
             ArrayList<String> xAxisLables = new ArrayList<>();
 
             for (int i = 0; i< stepList.size();i++){
@@ -235,7 +235,47 @@ public class HomeActivity extends AppCompatActivity {
                             localDatabase.createUser(userData);
                         }
                     }
-                    setView();
+                    //get data from db and get goal
+
+                    reference.child("users").child(auth.getCurrentUser().getUid()).child("steps")
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            List<StepModel> stepsList = new ArrayList<>();
+                            for (DataSnapshot snapshot1:snapshot.getChildren()){
+                                StepModel stepModel = snapshot1.getValue(StepModel.class);
+                                if (stepModel != null){
+                                    stepsList.add(stepModel);
+                                }
+                            }
+//                            add step list in database
+                            localDatabase.addOldSteps(stepsList, auth.getCurrentUser().getUid());
+//                            start displaying fragments
+                            reference.child("Goals").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    ModelGoal goal = snapshot.getValue(ModelGoal.class);
+                                    if (goal!=null){
+                                        CommonData.goal = goal;
+                                        localDatabase.insertGoal(auth.getCurrentUser().getUid(),goal.getStepGoal(),goal.getCaloriesGoal());
+                                    }else{
+                                        CommonData.goal = localDatabase.getGoal(auth.getCurrentUser().getUid());
+                                    }
+                                    setView();                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(getApplicationContext(), "Error Database 2 => "+error.getMessage(), Toast.LENGTH_SHORT).show();
+                                    setView();                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getApplicationContext(), "Error => "+error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            setView();                        }
+                    });
                 }
 
                 @Override
@@ -266,10 +306,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setUIData() {
+        String s = localDatabase.getSteps(auth.getCurrentUser().getUid(),today);
 
-        long steps = CommonData.steps;
+        long steps = Math.max(Long.parseLong(s), CommonData.steps);
         double calories = steps * 0.04;
-
 
         long stepGoal = 0;
         double percentage = 0;
@@ -278,7 +318,7 @@ public class HomeActivity extends AppCompatActivity {
         }catch (Exception ignored){
             stepGoal = 500;
         }
-        percentage = CommonData.steps * 100.0 / stepGoal;
+        percentage = steps * 100.0 / stepGoal;
 
         double height = Double.parseDouble(CommonData.userData.getHeight());
 
@@ -290,12 +330,12 @@ public class HomeActivity extends AppCompatActivity {
         double distance = distanceCm/100;
 
 
-        stepCount.setText(steps+"");
+        stepCount.setText(steps+"/"+stepGoal);
         stepCountProgress.setProgress((int) percentage);
 
         stepTextView.setText(steps+"");
         caloriesTextView.setText(df.format(calories));
-        distanceTextView.setText(df.format(distance));
+        distanceTextView.setText(df.format(distance)+"m");
 
     }
 
@@ -329,7 +369,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setBarData() {
         ArrayList<BarEntry> dataValues = new ArrayList<>();
 
-        List<StepModel> stepList = localDatabase.getOldSteps(Objects.requireNonNull(auth.getCurrentUser()).getUid());
+        List<StepModel> stepList = localDatabase.getOldSteps(Objects.requireNonNull(auth.getCurrentUser()).getUid(), false);
         ArrayList<String> xAxisLables = new ArrayList<>();
 
         for (int i = 0; i< stepList.size();i++){
