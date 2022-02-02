@@ -176,7 +176,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 String step =cr.getString(1);
                 String date = cr.getString(3);
                 if(!flag) {
-                    date = date.split("-")[1] + "-" + date.split("-")[2];
+                    date = getMonth(date.split("-")[1]) + "-" + date.split("-")[2];
                 }
                 stepsList.add(new StepModel(date,step,uId));
             }catch (Exception e){

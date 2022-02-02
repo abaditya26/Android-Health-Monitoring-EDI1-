@@ -55,7 +55,7 @@ public class StatStepAdapter extends RecyclerView.Adapter<StatStepAdapter.ViewHo
         public void setData(StepModel stepData) {
             date.setText(stepData.getDate());
             step.setText(stepData.getSteps());
-            calorie.setText((df.format(Long.parseLong(stepData.getSteps()) * 0.04))+"m");
+            calorie.setText((df.format(Long.parseLong(stepData.getSteps()) * 0.04))+"kcal");
         }
     }
 }

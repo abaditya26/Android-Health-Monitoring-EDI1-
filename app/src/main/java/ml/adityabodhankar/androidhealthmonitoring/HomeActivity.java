@@ -98,7 +98,9 @@ public class HomeActivity extends AppCompatActivity {
                     stepGoal = Long.parseLong(CommonData.goal.getStepGoal());
                 }catch (Exception ignored) {
 //                    todo:get goal
-                    FirebaseDatabase.getInstance().getReference().child("Goals").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    FirebaseDatabase.getInstance().getReference().child("Goals")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             ModelGoal goal = snapshot.getValue(ModelGoal.class);
@@ -106,7 +108,6 @@ public class HomeActivity extends AppCompatActivity {
                                 CommonData.goal = goal;
                                 localDatabase.insertGoal(FirebaseAuth.getInstance().getCurrentUser().getUid(),goal.getStepGoal(),goal.getCaloriesGoal());
                             }else{
-                                System.out.println("huiashdiusadh");
                                 CommonData.goal = localDatabase.getGoal(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             }
                         }
@@ -213,8 +214,11 @@ public class HomeActivity extends AppCompatActivity {
 
 //        if internet connection then fetch from remote db and set the latest data to local db
 //        else get data from local db
+        String uid = auth.getCurrentUser().getUid();
+        System.out.println(uid);
         if(CommonData.isNetworkAvailable(this)) {
-            reference.child("users").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            reference.child("users").child(uid)
+                    .addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     loading.setVisibility(View.GONE);
@@ -237,10 +241,12 @@ public class HomeActivity extends AppCompatActivity {
                     }
                     //get data from db and get goal
 
+                    System.out.println("jsahkdjhaskjdh");
                     reference.child("users").child(auth.getCurrentUser().getUid()).child("steps")
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            System.out.println("incompand");
                             List<StepModel> stepsList = new ArrayList<>();
                             for (DataSnapshot snapshot1:snapshot.getChildren()){
                                 StepModel stepModel = snapshot1.getValue(StepModel.class);
@@ -285,6 +291,7 @@ public class HomeActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Error :- " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
+            System.out.println("hi");
         }else{
             // get data from local database
             userData = localDatabase.getUser(auth.getCurrentUser().getUid());
